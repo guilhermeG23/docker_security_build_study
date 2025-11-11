@@ -19,5 +19,3 @@ jobs:
     - name: Test with Docker Compose
       run: docker compose up tester
 
-    - name: Test
-      run: VAR_T1="T1" VAR_T2="T2" go test -v main_test.go
