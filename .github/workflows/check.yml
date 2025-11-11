@@ -16,8 +16,8 @@ jobs:
       with:
         go-version: '1.22'
 
-    - name: Start Docker Compose
-      run: docker compose up -d tester
+    - name: Test with Docker Compose
+      run: docker compose up tester
 
     - name: Test
-      run: VAR_T1="T1" VAR_T2="T2" go test -v main.go
+      run: VAR_T1="T1" VAR_T2="T2" go test -v main_test.go
