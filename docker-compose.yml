@@ -1,5 +1,10 @@
 services:
 
+  tester:
+    build:
+      context: . # Usando uma imagem Dockerfile para maior seguranca que o trecho comentado acima
+      target: tester
+
   production:
     build:
       context: . # Usando uma imagem Dockerfile para maior seguranca que o trecho comentado acima
