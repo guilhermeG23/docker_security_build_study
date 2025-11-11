@@ -49,6 +49,11 @@ ENTRYPOINT ["./main"]
 
 Vc consegue executar o dockerfile em partes só que de forma seguencial caso use o docke run
 
+Exemplo de comando para iniciar o build de um unico do dockerfile:
+```
+docker build --target=builder -t builder .
+```
+
 
 Tmb é possível ignorar arquivos no COPY, para isso, tem que haver o arquivo: .dockerignore
 E dentro dele, os paths dos arquivos que vc não quer copiar
