@@ -1,0 +1,9 @@
+services:
+ 
+  production:
+    build:
+      context: . # Usando uma imagem Dockerfile para maior seguranca que o trecho comentado acima
+      target: production
+    #environment:
+    #  - VAR_T1=t1
+    #  - VAR_T2=t2
