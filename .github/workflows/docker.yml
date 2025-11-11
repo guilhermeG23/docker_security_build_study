@@ -1,0 +1,39 @@
+name: Docker
+
+on:
+  workflow_call: # Só é chamado quando alguem chamar esse cara
+
+jobs:
+
+  docker:
+    runs-on: ubuntu-latest
+    env:
+      VAR_T1: t1
+      VAR_T2: t2
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Download build artifact # Puxa o artefato para ele trabalhar no dockerfile
+      uses: actions/download-artifact@v6.0.0
+      with:
+        name: programa_go_main
+
+    - name: Setup Docker Build
+      uses: docker/setup-buildx-action@v3.11.1 # Marketplace Github
+
+    - name: Setup Docker Login
+      uses: docker/login-action@v3.6.0
+      with: # Uso dos segredos para dentro do workflow
+        username: ${{ secrets.USERNAME_DEFAULT_DOCKER_HUB }}
+        password: ${{ secrets.PASSWORD_DEFAULT_DOCKER_HUB }} #Aqui é um PAT Token do HUB
+
+    - name: Build and push Docker images
+      uses: docker/build-push-action@v6.18.0
+      with:
+        context: . # Diretorio que vai pegar o Dockerfile
+        file: ./Dockerfile # Arquivo Dockerfile / P.S: Pode ter outro nome
+        push: true # Aqui ele confirmar se vc quer fazer o PUSH para o HUB, por padrão é FALSE
+        tags: | # ${{ github.ref_name }} -> Nome da branch atual / Aqui é o nome do repo que vc
+          guilhermebrechot/ubuntu_test_security_ci_cd:${{ github.sha }}
+          guilhermebrechot/ubuntu_test_security_ci_cd:latest 
+          
